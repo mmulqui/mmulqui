@@ -1,16 +1,15 @@
 # schemas.py
 from pydantic import BaseModel, ConfigDict
 
-class TaskBase(BaseModel):
+class TaskCreate(BaseModel):
     title: str
     description: str | None = None
-    completed: bool = False
 
-class TaskCreate(TaskBase):
-    pass
-
-class TaskResponse(TaskBase):
+class TaskResponse(BaseModel):
     id: int
+    title: str
+    description: str | None
+    completed: bool
+    archived: bool
 
-    # Configuración para permitir la lectura de modelos ORM directamente (equivalente a orm_mode en v1)
     model_config = ConfigDict(from_attributes=True)
